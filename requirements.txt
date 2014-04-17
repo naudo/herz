@@ -1,0 +1,4 @@
+-e  hg+https://bitbucket.org/pygame/pygame#egg=Pygame.egg
+moviepy
+scipy
+pygame
