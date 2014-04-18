@@ -1,8 +1,7 @@
 from SimpleCV import Camera
-import time
 # RGB
 cam = Camera()
-SAMPLE_WIDTH = 2
+SAMPLE_WIDTH = 100
 SAMPLE_HEIGHT = SAMPLE_WIDTH
 SAMPLE_OFFSET = 0
 PIXEL_COUNT = SAMPLE_HEIGHT * SAMPLE_WIDTH
@@ -15,9 +14,8 @@ while True:
     total = 0
     for row in range(0, SAMPLE_WIDTH):
         for col in matrix[row]:
-            total += col[GREEN
+            total += col[GREEN]
 
     print total / PIXEL_COUNT
 
     img2.show()
-    time.sleep(0.01)
