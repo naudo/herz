@@ -33,11 +33,13 @@ def sample_avg_green(img):
 
     return total / PIXEL_COUNT
 
-def draw_box_outline_and_show(img):
+def draw_box_outline_and_show(img, bpm=None):
     boxLayer = SimpleCV.DrawingLayer((img.width, img.height))
     boxLayer.centeredRectangle((img.width/2, img.height / 2), (SAMPLE_WIDTH, SAMPLE_HEIGHT))
     img.addDrawingLayer(boxLayer)
     img.applyLayers()
+
+    img.drawText("BPM: %s" % bpm, 50,50, color=SimpleCV.Color.BLACK,fontsize=24 )
     img.show()
 
 
