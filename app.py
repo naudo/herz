@@ -21,12 +21,24 @@ plt.ion() # enable interactive graphing
 plt.show()
 
 bpm = None
-
+avg_bpm = None
+bpm_history = []
 while True:
     img = cam.getImage()
+    img = img.flipHorizontal()
+
     sampled_img = img[sample_x0:sample_x0 + SAMPLE_WIDTH, sample_y0: sample_y0 + SAMPLE_HEIGHT]
     avg_green = helpers.sample_avg_green(sampled_img)
     green_values.append(avg_green)
+
+    # faces = img.findHaarFeatures("/Users/hb/code/herz/haarcascade_frontalface_alt.xml")
+    # scalesize = 0.5
+
+    # if faces:
+    #     for face in faces:
+    #         print("I found a face @ %s" % str(face.coordinates))
+    #         face.draw()
+    #         # img.drawRect(face.x * (1/scalesize), face.y * (1/scalesize), face.width() * (1/scalesize), face.height() * (1/scalesize))
 
     # This logic is wrong for stuff :/
     if len(green_values) >= 105: # 3.5 seconds of frames
@@ -44,9 +56,16 @@ while True:
         index = max_amp_index[1]  + helpers.LHR_INDEX 
         bpm = (index * helpers.HZ_MAPPER * 60)
 
+
+        bpm_history.append(bpm)
+
+
+        avg_bpm = sum(bpm_history[-5:])/ 5 #first couple will be wrong because 
+
+
         plt.clf() #clear the figure
         plt.plot(stuff[helpers.LHR_INDEX:helpers.UHR_INDEX])
         plt.draw()
 
 
-    helpers.draw_box_outline_and_show(img, bpm)
+    helpers.draw_box_outline_and_show(img, bpm, avg_bpm)

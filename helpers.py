@@ -6,7 +6,7 @@ SAMPLE_RATE = 30
 NYQUIST_FREQ = SAMPLE_RATE / 2 #is this actually the right name for a var
 
 # We're just going to make the assumption that folks are alive
-LOWER_HEART_RATE_BPM = 40        
+LOWER_HEART_RATE_BPM = 50        
 UPPER_HEART_RATE_BPM = 180
 
 LHR_HZ = LOWER_HEART_RATE_BPM / 60.0
@@ -22,7 +22,7 @@ SAMPLE_WIDTH=100
 SAMPLE_HEIGHT=100
 
 PIXEL_COUNT = SAMPLE_WIDTH * SAMPLE_HEIGHT
-
+bpm=[]
 
 def sample_avg_green(img):
     matrix = img.getNumpy()
@@ -33,13 +33,12 @@ def sample_avg_green(img):
 
     return total / PIXEL_COUNT
 
-def draw_box_outline_and_show(img, bpm=None):
+def draw_box_outline_and_show(img, bpm=None, avg_bpm=None):
     boxLayer = SimpleCV.DrawingLayer((img.width, img.height))
     boxLayer.centeredRectangle((img.width/2, img.height / 2), (SAMPLE_WIDTH, SAMPLE_HEIGHT))
     img.addDrawingLayer(boxLayer)
     img.applyLayers()
-
-    img.drawText("BPM: %s" % bpm, 50,50, color=SimpleCV.Color.BLACK,fontsize=24 )
+    img.drawText("BPM: %s, AVG: %s" % (bpm, avg_bpm), 50,50, color=SimpleCV.Color.BLACK,fontsize=24 )
     img.show()
 
 
