@@ -26,7 +26,6 @@ avg_bpm = None
 bpm_history = collections.deque(maxlen=5)
 while True:
     img = cam.getImage()
-    img = img.flipHorizontal()
 
     sampled_img = img[sample_x0:sample_x0 + SAMPLE_WIDTH, sample_y0: sample_y0 + SAMPLE_HEIGHT]
     avg_green = helpers.sample_avg_green(sampled_img)
