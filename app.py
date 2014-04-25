@@ -4,6 +4,7 @@ import numpy
 import helpers
 import matplotlib.pyplot as plt
 import time
+import collections
 # RGB
 cam = Camera()
 SAMPLE_WIDTH = 100
@@ -22,7 +23,7 @@ plt.show()
 
 bpm = None
 avg_bpm = None
-bpm_history = []
+bpm_history = collections.deque(maxlen=5)
 while True:
     img = cam.getImage()
     img = img.flipHorizontal()
@@ -60,7 +61,7 @@ while True:
         bpm_history.append(bpm)
 
 
-        avg_bpm = sum(bpm_history[-5:])/ 5 #first couple will be wrong because 
+        avg_bpm = sum(bpm_history)/ len(bpm_history) #first couple will be wrong because 
 
 
         plt.clf() #clear the figure
